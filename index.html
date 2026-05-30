@@ -511,6 +511,78 @@
 .logo-img{width:100%;height:100%;object-fit:contain;display:block}
 
 </style>
+
+<style id="cosmoq-admin-v3">
+:root{
+--deep-horizon:#163C7D;
+--sky-blue:#276BB0;
+--atmospheric-blue:#5A95CC;
+--horizon-mist:#9BB4CD;
+--cloud-white:#E3DDD5;
+--solar-light:#FDEFA9;
+}
+body{
+background:linear-gradient(180deg,var(--deep-horizon),var(--sky-blue) 35%,var(--horizon-mist) 75%,var(--cloud-white))!important;
+color:#10233f!important;
+}
+.sidebar{
+background:rgba(255,255,255,.88)!important;
+backdrop-filter:blur(30px)!important;
+}
+.sidebar-logo,.sidebar-footer{border-color:rgba(22,60,125,.1)!important;}
+.nav-item{border-radius:16px!important;}
+.nav-item.active{
+background:linear-gradient(135deg,var(--deep-horizon),var(--sky-blue))!important;
+box-shadow:0 10px 30px rgba(39,107,176,.25)!important;
+}
+.main{padding:24px!important;}
+.page-header{
+background:rgba(255,255,255,.55);
+padding:20px;
+border-radius:24px;
+backdrop-filter:blur(20px);
+margin-bottom:24px!important;
+}
+.stat-card,.table-card,.login-card,.modal,.user-row,.denied-card{
+background:rgba(255,255,255,.82)!important;
+border:1px solid rgba(22,60,125,.08)!important;
+box-shadow:0 10px 40px rgba(22,60,125,.08)!important;
+}
+.stat-value,.page-title,.modal-title{color:var(--deep-horizon)!important;}
+.btn-primary{
+background:linear-gradient(135deg,var(--deep-horizon),var(--sky-blue))!important;
+}
+.btn-primary:hover{transform:translateY(-2px)!important;}
+.search-box input,input,select,textarea{
+background:white!important;
+}
+@media(max-width:768px){
+.sidebar{
+position:fixed!important;
+bottom:0!important;
+top:auto!important;
+width:100%!important;
+height:72px!important;
+display:flex!important;
+flex-direction:row!important;
+justify-content:space-around!important;
+padding:8px!important;
+z-index:999!important;
+}
+.sidebar-logo,.nav-section-label,.sidebar-footer span,.user-info{display:none!important;}
+.nav-item{
+flex-direction:column!important;
+font-size:11px!important;
+margin:0!important;
+padding:8px!important;
+}
+.main{
+margin-left:0!important;
+padding-bottom:100px!important;
+}
+.stats-grid{grid-template-columns:1fr!important;}
+}
+</style>
 </head>
 <body>
 
@@ -556,7 +628,7 @@
       <span class="badge">ADMIN</span>
     </div>
 
-    <div class="nav-section-label">Reports</div>
+    <div class="nav-item"><span class="icon">📊</span> Dashboard</div><div class="nav-section-label">Reports</div>
     <div class="nav-item active" data-page="bugs" onclick="showPage('bugs', this)">
       <span class="icon">🐛</span> Bug Reports
       <span class="nav-badge" id="badge-open">0</span>
