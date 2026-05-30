@@ -506,7 +506,11 @@
       .main { margin-left: 200px; padding: 24px 16px; }
       .stats-grid { grid-template-columns: 1fr 1fr; }
     }
-  </style>
+  
+.logo-container{background:transparent!important;box-shadow:none!important;overflow:hidden}
+.logo-img{width:100%;height:100%;object-fit:contain;display:block}
+
+</style>
 </head>
 <body>
 
@@ -514,7 +518,7 @@
 <div id="login-screen">
   <div class="login-card">
     <div class="login-logo">
-      <div class="orb">🪐</div>
+      <div class="orb logo-container"><img src="logo.png" alt="Cosmoq Logo" class="logo-img"></div>
       <span class="brand">Cosmoq</span>
       <span class="badge">ADMIN</span>
     </div>
@@ -547,7 +551,7 @@
 <div id="app">
   <nav class="sidebar">
     <div class="sidebar-logo">
-      <div class="orb">🪐</div>
+      <div class="orb logo-container"><img src="logo.png" alt="Cosmoq Logo" class="logo-img"></div>
       <span>Cosmoq</span>
       <span class="badge">ADMIN</span>
     </div>
@@ -562,6 +566,10 @@
     <div class="nav-item" data-page="users" onclick="showPage('users', this)">
       <span class="icon">👥</span> Benutzer
     </div>
+    <div class="nav-item" data-page="settings" onclick="showPage('settings', this)">
+      <span class="icon">⚙️</span> App Einstellungen
+    </div>
+
 
     <div class="sidebar-footer">
       <div class="user-pill">
@@ -684,6 +692,23 @@
         <p>Stelle sicher dass RLS-Policies für Admins aktiv sind.</p>
       </div>
     </div>
+
+    <div class="page" id="page-settings">
+      <div class="page-header">
+        <div>
+          <div class="page-title">App Einstellungen</div>
+          <div class="page-subtitle">Version der App verwalten</div>
+        </div>
+      </div>
+      <div class="table-card" style="padding:24px">
+        <div class="form-group">
+          <label>Aktuelle App-Version</label>
+          <input type="text" id="version-label" placeholder="z.B. v0.0.4">
+        </div>
+        <button class="btn btn-primary" onclick="saveVersion()">Version speichern</button>
+      </div>
+    </div>
+
 
   </main>
 </div>
@@ -834,6 +859,7 @@
     document.getElementById('page-' + name).classList.add('active');
     el.classList.add('active');
     if (name === 'users') loadUsers();
+    if (name === 'settings') loadVersion();
   }
 
   // ─── Bug Reports ───
@@ -1056,6 +1082,23 @@
     showToast(isAdmin ? 'Admin-Rolle entfernt' : 'Admin-Rolle vergeben ✓', 'success');
     loadUsers();
   }
+
+  
+async function loadVersion() {
+  const { data } = await db.from('app_metadata').select('value').eq('key','version_label').single();
+  if(data) document.getElementById('version-label').value = data.value || '';
+}
+
+async function saveVersion() {
+  const version = document.getElementById('version-label').value.trim();
+  const { error } = await db.from('app_metadata').update({
+    value: version,
+    updated_at: new Date().toISOString()
+  }).eq('key','version_label');
+  if(error){ showToast('Fehler: ' + error.message,'error'); return; }
+  showToast('Version gespeichert','success');
+}
+
 
   // ─── Helpers ───
 
