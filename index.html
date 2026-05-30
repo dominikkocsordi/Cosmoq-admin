@@ -523,7 +523,7 @@
       <span class="badge">ADMIN</span>
     </div>
     <h1>Willkommen zurück</h1>
-    <p>Nur für Administratoren. Melde dich mit deinem Account an.</p>
+    <p>Melde dich mit deinem Account an.</p>
     <div class="form-group">
       <label>E-Mail</label>
       <input type="email" id="login-email" placeholder="admin@example.com" autocomplete="email" />
@@ -589,7 +589,6 @@
       <div class="page-header">
         <div>
           <div class="page-title">Bug Reports</div>
-          <div class="page-subtitle">Alle eingereichten Bug-Reports aus der App</div>
         </div>
         <button class="btn btn-ghost btn-sm" onclick="loadBugs()">↻ Aktualisieren</button>
       </div>
@@ -671,11 +670,7 @@
           <span style="font-size:15px;font-weight:600">Admin-Rollen</span>
         </div>
         <div style="font-size:13px;color:var(--soft-gray);line-height:1.7">
-          Die <code style="background:rgba(255,255,255,0.08);padding:2px 7px;border-radius:6px">role</code>-Spalte
-          wird in der <strong>profiles</strong>-Tabelle gespeichert.
-          Setze <code style="background:rgba(255,255,255,0.08);padding:2px 7px;border-radius:6px">role = 'admin'</code>
-          um jemandem Zugriff zu geben — oder entferne den Wert für normalen Nutzer-Zugriff.<br/><br/>
-          Alternativ direkt im SQL-Editor:<br/>
+          SQL-Editor:
           <code style="background:rgba(255,255,255,0.05);padding:6px 10px;border-radius:8px;display:inline-block;margin-top:6px;font-size:12px">
             UPDATE profiles SET role = 'admin' WHERE id = (SELECT id FROM auth.users WHERE email = 'email@example.de');
           </code>
